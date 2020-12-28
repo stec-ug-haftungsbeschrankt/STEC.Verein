@@ -1,0 +1,7 @@
+**/bin
+**/obj
+**/*.db
+.vs
+/.vs/STEC.Verein/v16/.suo
+/.vs/STEC.Verein/DesignTimeBuild/.dtbcache.v2
+/.vs/STEC.Verein/v16/TestStore/0/testlog.manifest
