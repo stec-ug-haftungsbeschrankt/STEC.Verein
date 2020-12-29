@@ -1,13 +1,13 @@
 # STEC.Verein
 
-Verwaltungssoftware für Hundevereine. Das umfalsst das Verwalten von
+Verwaltungssoftware für Hundevereine. Das umfasst das Verwalten von
 
 - Mitgliedern, Jahresteilnehmern und Kursteilnehmern der Welpen-Spielstunde
 - Hunden inklusive Chip- und Versicherungsinformationen
 - Zahlungsinformationen für die Jährlichen Beitragsabrechnungen
 - Arbeitstunden
 - Kursen
-- Trainer-Budget für AUs und Weiterbildung der Trainer
+- Trainer-Budget für Aus- und Weiterbildung der Trainer
 
 Als Datenbank wird PostgreSql verwendet. Die Konfiguration erfolgt in einer appsettings.json-Datei.
 
