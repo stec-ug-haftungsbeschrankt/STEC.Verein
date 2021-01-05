@@ -1,0 +1,153 @@
+@page
+@model Verein.Pages.Benutzer.IndexModel
+
+@{
+    ViewData["Title"] = "Benutzer";
+}
+
+<h1>Benutzer</h1>
+
+@if (string.IsNullOrEmpty(ViewData["UserInviteError"] as string) == false)
+{
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Benutzer Einladung Fehlgeschlagen!</strong> Bitte überprüfe deine Eingaben. @ViewData["UserInviteError"]
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+}
+@if (string.IsNullOrEmpty(ViewData["UserInviteSuccess"] as string) == false)
+{
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Benutzer Einladung Erfolgreich!</strong> @ViewData["UserInviteSuccess"]
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+}
+
+<p>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inviteModal">
+        Benutzer Einladen
+    </button>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HundevereinUsers[0].FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HundevereinUsers[0].UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HundevereinUsers[0].Rolle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HundevereinUsers[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HundevereinUsers[0].PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HundevereinUsers[0].Approved)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@if (Model.HundevereinUsers != null) {
+@foreach (var item in Model.HundevereinUsers) {
+        <tr>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Rolle)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Approved)
+            </td>
+            <td class="align-middle">
+                <form method="post"  class="float-right">
+                @if (item.Approved != true)
+                {
+                    <button type="submit" class="btn btn-primary mr-1" asp-page-handler="Approve" asp-route-id="@item.Id">Genehmigen</button>
+                }
+                    <a class="btn btn-danger mr-1" asp-page="./Delete" asp-route-id="@item.Id">Löschen</a>
+                </form>
+            </td>
+            <td class="align-middle">
+                <form method="post"  class="float-right">
+                    <button type="submit" class="btn btn-danger mr-1" asp-page-handler="ResetPassword" asp-route-id="@item.Id">Passwort zurücksetzen</button>
+                </form>
+            </td>
+        </tr>
+}
+}
+    </tbody>
+</table>
+
+
+<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="inviteModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="inviteTitle">Benutzer einladen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="input-group mb-3">
+                        <div class="form-group col-sm-8">
+                            <label asp-for="Input.FullName"></label>
+                            <input asp-for="Input.FullName" class="form-control" />
+                            <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-8">
+                            <label asp-for="Input.Rolle" class="control-label"></label>
+                            <span asp-validation-for="Input.Rolle" class="text-danger float-right"></span>
+                            <select asp-for="Input.Rolle" asp-items="Html.GetEnumSelectList<Verein.Models.BenutzerTyp>()" class="form-control">
+                                <option selected="selected" value="">Bitte Auswählen</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-8">
+                            <label asp-for="Input.Email"></label>
+                            <input asp-for="Input.Email" class="form-control" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <!--
+                        <div class="form-group col-sm-8">
+                            <label asp-for="Input.Password"></label>
+                            <input asp-for="Input.Password" class="form-control" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-8">
+                            <label asp-for="Input.ConfirmPassword"></label>
+                            <input asp-for="Input.ConfirmPassword" class="form-control" />
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                    <button type="submit" class="btn btn-primary" asp-page-handler="Invite">Einladen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

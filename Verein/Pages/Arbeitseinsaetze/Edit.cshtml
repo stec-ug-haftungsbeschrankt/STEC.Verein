@@ -1,0 +1,43 @@
+@page
+@model Verein.Pages.Arbeitseinsaetze.EditModel
+
+@{
+    ViewData["Title"] = "Editieren";
+}
+
+<h1>Editieren</h1>
+
+<h4>Arbeitseinsatz</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ArbeitsTaetigkeit.Id" />
+            <div class="form-group">
+                <label asp-for="ArbeitsTaetigkeit.Titel" class="control-label"></label>
+                <input asp-for="ArbeitsTaetigkeit.Titel" class="form-control" />
+                <span asp-validation-for="ArbeitsTaetigkeit.Titel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArbeitsTaetigkeit.Datum" class="control-label"></label>
+                <input asp-for="ArbeitsTaetigkeit.Datum" class="form-control" />
+                <span asp-validation-for="ArbeitsTaetigkeit.Datum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArbeitsTaetigkeit.Taetigkeit" class="control-label"></label>
+                <input asp-for="ArbeitsTaetigkeit.Taetigkeit" class="form-control" />
+                <span asp-validation-for="ArbeitsTaetigkeit.Taetigkeit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Speichern" class="btn btn-primary mr-1" />
+                <a class="btn btn-secondary mr-1" asp-page="./Index">Zurück zur Liste</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

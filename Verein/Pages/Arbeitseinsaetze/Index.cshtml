@@ -1,0 +1,53 @@
+@page
+@model Verein.Pages.Arbeitseinsaetze.IndexModel
+
+@{
+    ViewData["Title"] = "Arbeitseinsätze";
+}
+
+<h1>Arbeitseinsätze</h1>
+
+<p>
+    <a class="btn btn-primary" asp-page="Create">Neuen Arbeitseinsatz anlegen</a>
+    <a class="btn btn-primary float-right" asp-page="../ArbeitsstundenAuswertung">Arbeitsstunden Auswertung anzeigen</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ArbeitsTaetigkeit[0].Titel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArbeitsTaetigkeit[0].Datum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArbeitsTaetigkeit[0].Taetigkeit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArbeitsTaetigkeit[0].Helfer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ArbeitsTaetigkeit) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Datum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Taetigkeit)
+            </td>
+            <td>
+                @item.Helfer.Count()
+            </td>
+            <td>
+                <a class="btn btn-primary float-right" asp-page="./Details" asp-route-id="@item.Id">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

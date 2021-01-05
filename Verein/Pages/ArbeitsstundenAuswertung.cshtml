@@ -1,0 +1,71 @@
+@page
+@model ArbeitsstundenAuswertungModel
+@{
+    ViewData["Title"] = "Arbeitsstunden Auswertung";
+}
+
+<h1>Arbeitsstunden Auswertung</h1>
+
+<p>
+    <div>
+        <div class="dropdown mr-1 float-right">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Filter
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                @foreach (var year in Model.Years)
+                {
+                    <a class="dropdown-item" asp-page-handler="Filter" asp-route-query="@year">@year</a>
+                }
+            </div>
+        </div>
+    </div>
+</p>
+
+<br />
+
+<h2>Jahr @Model.Year</h2>
+
+<p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Arbeitsdaten[0].Mitgliedsnummer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Arbeitsdaten[0].FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Arbeitsdaten[0].GeleisteteStunden)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.Arbeitsdaten) {
+            <tr>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Mitgliedsnummer)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td class="align-middle">
+                    @if (item.GeleisteteStunden >= item.ErwarteteStunden)
+                    {
+                        <span style="color: green;">@Html.DisplayFor(modelItem => item.GeleisteteStunden) / @Html.DisplayFor(modelItem => item.ErwarteteStunden)</span>
+                    }
+                    else
+                    {
+                        <span style="color: red;">@Html.DisplayFor(modelItem => item.GeleisteteStunden) / @Html.DisplayFor(modelItem => item.ErwarteteStunden)</span>
+                    }
+                </td>
+                <td class="align-middle">
+                    <a class="btn btn-primary float-right" asp-page="./Mitglieder/Details" asp-route-id="@item.MitgliedsId">Details</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</p>
