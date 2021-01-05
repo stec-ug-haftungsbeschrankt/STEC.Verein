@@ -1,0 +1,52 @@
+@page
+@model Verein.Pages.ZahlungsInformationen.EditModel
+
+@{
+    ViewData["Title"] = "Zahlungsinformation editieren";
+}
+
+<h1>Zahlungsinformation editieren</h1>
+
+<h4>Zahlungsinformation</h4>
+<hr />
+<div class="row">
+    <form class="col-md-12" method="post">
+        <div class="form-row">
+            <div class="col-md-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="BankInformation.Id" />
+                <div class="form-group">
+                    <label asp-for="BankInformation.BankName" class="control-label"></label>
+                    <span asp-validation-for="BankInformation.BankName" class="text-danger float-right"></span>
+                    <input asp-for="BankInformation.BankName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="BankInformation.KontoInhaber" class="control-label"></label>
+                    <span asp-validation-for="BankInformation.KontoInhaber" class="text-danger float-right"></span>
+                    <input asp-for="BankInformation.KontoInhaber" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary mr-1">Speichern</button>
+                    <a class="btn btn-secondary mr-1" asp-page="./Index">Zurück zur Liste</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="BankInformation.Iban" class="control-label"></label>
+                    <span asp-validation-for="BankInformation.Iban" class="text-danger float-right"></span>
+                    <input asp-for="BankInformation.Iban" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="BankInformation.Bic" class="control-label"></label>
+                    <span asp-validation-for="BankInformation.Bic" class="text-danger float-right"></span>
+                    <input asp-for="BankInformation.Bic" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

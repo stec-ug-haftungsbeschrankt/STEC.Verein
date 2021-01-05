@@ -1,0 +1,66 @@
+@page
+@model Verein.Pages.Hunde.EditModel
+
+@{
+    ViewData["Title"] = "Hund editieren";
+}
+
+<h1>Hund editieren</h1>
+
+<h4>Hund</h4>
+<hr />
+<div class="row">
+    <form class="col-md-12" method="post">
+        <div class="form-row">
+            <div class="col-md-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Hund.Id" />
+                <div class="form-group">
+                    <label asp-for="Hund.Name" class="control-label"></label>
+                    <span asp-validation-for="Hund.Name" class="text-danger float-right"></span>
+                    <input asp-for="Hund.Name" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Hund.Zwingername" class="control-label"></label>
+                    <span asp-validation-for="Hund.Zwingername" class="text-danger float-right"></span>
+                    <input asp-for="Hund.Zwingername" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Hund.Rasse" class="control-label"></label>
+                    <span asp-validation-for="Hund.Rasse" class="text-danger float-right"></span>
+                    <input asp-for="Hund.Rasse" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary mr-1">Speichern</button>
+                    <a class="btn btn-secondary mr-1" asp-page="./Index">Zurück zur Liste</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Hund.Geburtsdatum" class="control-label"></label>
+                    <span asp-validation-for="Hund.Geburtsdatum" class="text-danger float-right"></span>
+                    <input asp-for="Hund.Geburtsdatum" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Hund.ChipNummer" class="control-label"></label>
+                    <span asp-validation-for="Hund.ChipNummer" class="text-danger float-right"></span>
+                    <input asp-for="Hund.ChipNummer" class="form-control" />
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="Hund.Geimpft" /> @Html.DisplayNameFor(model => model.Hund.Geimpft)
+                    </label>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="Hund.Versichert" /> @Html.DisplayNameFor(model => model.Hund.Versichert)
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

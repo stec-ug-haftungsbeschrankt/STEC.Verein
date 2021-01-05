@@ -1,0 +1,80 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Übersicht";
+}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">@ViewData["VereinsName"]</h1>
+        <p class="lead">Willkommen zur Verwaltungssoftware des @ViewData["VereinsName"].</p>
+        <hr class="my-4">
+        <p>Diese Software befindet sich derzeit im Beta Stadium. Sie ist jedoch bereits für den Produktiveinsatz geeignet. Wir freuen uns über jegliches Feedback!</p>
+
+        <h2>Letzte Änderungen</h2>
+        <p>
+            <h4>14.08.2020</h4>
+            <ul>
+                <li>Benutzer - Passwort zurücksetzen Button eingebaut</li>
+            </ul>
+        </p>
+        <p>
+            <h4>01.06.2020</h4>
+            <ul>
+                <li>Mitgliederliste - Echtzeitsuche hinzugefügt</li>
+                <li>Mitgliederliste und auch alle anderen Tabellen - Sortierung durch Klick auf Tabellenkopf-Beschriftung möglich</li>
+                <li>Mitglied anlegen/editieren - WLSpSt/JTN prüfung, ob Passiv/Familienmitgliedschaft ausgewählt ist</li>
+                <li>Mitglied anlegen/editieren - Länge der SWHV-Mitgliedsnummer wird geprüft</li>
+                <li>Mitglieder Ein- und Austritte - Detail Button fix</li>
+                <li>Mitglieder Ein- und Austritte - Ein-/Austrittsdatum statt Geburtstag anzeigen</li>
+                <li>Zahlungsinformationen Details - Fehlerbehebung bei Verknüpfung aufheben</li>
+                <li>Zahlungsinformationen Liste - Suche und sortieren hinzugefügt</li>
+            </ul>
+        </p>
+        <p>
+            <h4>23.03.2020</h4>
+            <ul>
+                <li>Mitglieder Ein- und Austritte - Trennung von Eintritten und Austritten in seperate Listen</li>
+                <li>Mitglieder Ein- und Austritte - Nur Mitglieder anzeigen</li>
+                <li>Benutzer einladen - Automatische Passwort generierung</li>
+            </ul>
+        </p>
+        <p>
+            <h4>25.02.2020</h4>
+            <ul>
+                <li>Tarif Auswertung - Passive Mitglieder sowie Kinder und Jugendliche müssen keine Arbeitsstunden leisten</li>
+                <li>Kurse - Fehler bei Aufruf von Kursdetails behoben (Korrupte Datenbankeinträge gelöscht)</li>
+            </ul>
+        </p>
+        <p>
+            <h4>22.02.2020</h4>
+            <ul>
+                <li>Benutzer Einladen - Statusmeldungen auf der Übersichtsseite anzeigen</li>
+                <li>Mitglieder - Mitgliedsnummern automatisch generieren für Jahresteilnehmer, Kursteilnehmer und Welpenstunde</li>
+            </ul>
+        </p>
+        <p>
+            <h4>16.02.2020</h4>
+            <ul>
+                <li>Mitglieder Detail Seite - Kurse Verknüpfung gefixt</li>
+                <li>Mitglieder Detail Seite - Hunde Verknüpfung gefixt</li>
+                <li>Arbeitseinsätze Übersicht - Sortierung absteigend nach Datum</li>
+                <li>Arbeitsstunden Auswertung - Filtermöglichkeit nach Jahr</li>
+                <li>Excel Export gefixt</li>
+            </ul>
+        </p>
+    </div>
+</div>
+
+<br />
+
+@await Html.PartialAsync("../Shared/_GeburtstagsWidgetPartial", Model.Mitglieder)
+
+
+<br />
+
+<div class="row">
+    <div class="col-sm-6">
+        @await Html.PartialAsync("../Shared/_EntfernungsWidgetPartial", Model.Mitglieder)
+    </div>
+</div>

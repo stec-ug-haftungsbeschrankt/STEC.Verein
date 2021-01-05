@@ -1,0 +1,166 @@
+@page
+@model MitgliedEinAustritteModel
+@{
+    ViewData["Title"] = "Mitglieder Ein- und Austritte";
+}
+
+<h1>Mitglieder Ein- und Austritte</h1>
+
+<p>
+    <form method="post">
+        <button type="submit" class="btn btn-primary" asp-page-handler="ExportExcel">Als Excel exportieren</button>
+    </form>
+</p>
+
+<h2>Eintritte</h2>
+<p>
+    <table id="mitgliederEintritteTable" class="table">
+        <thead>
+            <tr>
+                <th>
+                    M.Nr
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.MitgliederAustritte[0].Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.MitgliederAustritte[0].Vorname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.MitgliederAustritte[0].Eintrittsdatum)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.MitgliederAustritte[0].Telefonnummer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.MitgliederAustritte[0].HandyNummer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.MitgliederAustritte[0].EMail)
+                </th>
+                <th>
+                    Adresse
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.MitgliederAustritte[0].Typ)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.MitgliederEintritte) {
+            <tr>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.MitgliedsNummer)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Vorname)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Eintrittsdatum)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Telefonnummer)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.HandyNummer)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.EMail)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Strasse) @Html.DisplayFor(modelItem => item.Hausnummer)
+                    <br />
+                    @Html.DisplayFor(modelItem => item.Postleitzahl) @Html.DisplayFor(modelItem => item.Ort)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Typ)
+                </td>
+                <td class="align-middle">
+                    <a class="btn btn-primary float-right" asp-page="./Mitglieder/Details" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</p>
+
+
+<h2>Austritte</h2>
+<p>
+    <table id="mitgliederAustritteTable" class="table">
+        <thead>
+            <tr>
+                <th>
+                    M.Nr
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.MitgliederAustritte[0].Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.MitgliederAustritte[0].Vorname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.MitgliederAustritte[0].Austrittsdatum)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.MitgliederAustritte[0].Telefonnummer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.MitgliederAustritte[0].HandyNummer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.MitgliederAustritte[0].EMail)
+                </th>
+                <th>
+                    Adresse
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.MitgliederAustritte[0].Typ)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.MitgliederAustritte) {
+            <tr>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.MitgliedsNummer)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Vorname)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Austrittsdatum)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Telefonnummer)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.HandyNummer)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.EMail)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Strasse) @Html.DisplayFor(modelItem => item.Hausnummer)
+                    <br />
+                    @Html.DisplayFor(modelItem => item.Postleitzahl) @Html.DisplayFor(modelItem => item.Ort)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Typ)
+                </td>
+                <td class="align-middle">
+                    <a class="btn btn-primary float-right" asp-page="./Mitglieder/Details" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</p>

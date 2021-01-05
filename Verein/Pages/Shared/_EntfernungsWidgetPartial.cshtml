@@ -1,0 +1,75 @@
+@using System.Linq
+@using Verein.Models
+@using Verein.ViewModels
+
+@model IList<Mitglied>
+
+@{
+    List<EntfernungEvalViewModel> GroupByDistance(IList<Mitglied> mitglieder)
+    {
+        var result = new List<EntfernungEvalViewModel>();
+
+        int gap = 5;
+
+        mitglieder = mitglieder.OrderBy(m => m.Entfernung).ToList();
+
+        foreach (var mitglied in mitglieder)
+        {
+            int bucket = (int)(mitglied.Entfernung / gap);
+            string groupName = "von " + (bucket * gap).ToString() + " bis " + ((bucket +1) * gap).ToString() + " km";
+
+            var group = result.SingleOrDefault(e => e.Gruppe == groupName);
+
+            if (group == null)
+            {
+                group = new EntfernungEvalViewModel() { Gruppe = groupName };
+                result.Add(group);
+            }
+            group.Eintraege++;
+        }
+        return result;
+    }
+
+    var viewModel = GroupByDistance(Model);
+
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Entfernungsauswertung</h2>
+    </div>
+</div>
+
+<p>
+    Auswertung über die Distanz zwischen dem Wohnort der Mitglieder und dem Vereinsgelände. Es wird die Luftlinie als Grundlage für die Berechnung der Entfernung herangezogen.
+</p>
+
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => viewModel[0].Gruppe)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => viewModel[0].Eintraege)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+@foreach (var item in viewModel)
+{
+                <tr>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Gruppe)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Eintraege)
+                    </td>
+                </tr>
+}
+            </tbody>
+        </table>
+    </div>
+</div>

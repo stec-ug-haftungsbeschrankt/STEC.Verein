@@ -1,0 +1,56 @@
+@page
+@using Microsoft.AspNetCore.Identity
+@using Verein.Models
+
+@model Verein.Pages.Stammdaten.DetailsModel
+
+@inject UserManager<HundevereinUser> UserManager
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Stammdaten Eintrag</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StammdatenEintrag.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StammdatenEintrag.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StammdatenEintrag.Value)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StammdatenEintrag.Value)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StammdatenEintrag.Type)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StammdatenEintrag.Type)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StammdatenEintrag.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StammdatenEintrag.Description)
+        </dd>
+    </dl>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12">
+    @if (@UserManager.GetUserAsync(User).Result.Rolle <= BenutzerTyp.Vorstand)
+    {
+        <a class="btn btn-primary mr-1" asp-page="./Edit" asp-route-id="@Model.StammdatenEintrag.Id">Editieren</a>
+        <a class="btn btn-danger mr-1" asp-page="./Delete" asp-route-id="@Model.StammdatenEintrag.Id">Löschen</a>
+    }
+        <a class="btn btn-secondary mr-1" asp-page="./Index">Zurück zur Liste</a>
+    </div>
+</div>

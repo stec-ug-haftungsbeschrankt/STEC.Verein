@@ -1,0 +1,613 @@
+@page
+@using Microsoft.AspNetCore.Identity
+@using Verein.Models
+@model Verein.Pages.Mitglieder.DetailsModel
+
+@inject UserManager<HundevereinUser> UserManager
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Mitglied</h4>
+    <hr />
+    <div class="row">
+        <div class="col-sm-6">
+            <dl class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Mitglied.Vorname)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Mitglied.Vorname)
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Mitglied.Name)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Mitglied.Name)
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Mitglied.Typ)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Mitglied.Typ)
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Mitglied.Passiv)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Mitglied.Passiv)
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Mitglied.Familienmitgliedschaft)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Mitglied.Familienmitgliedschaft)
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-6">
+                    Adresse
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Mitglied.Strasse) @Html.DisplayFor(model => model.Mitglied.Hausnummer)
+                    <br />
+                    @Html.DisplayFor(model => model.Mitglied.Postleitzahl) @Html.DisplayFor(model => model.Mitglied.Ort)
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Mitglied.Bemerkung)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Mitglied.Bemerkung)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-6">
+            <dl class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Mitglied.MitgliedsNummer)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Mitglied.MitgliedsNummer)
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Mitglied.SwhvMitgliedsNummer)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Mitglied.SwhvMitgliedsNummer)
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Mitglied.Geburtstag)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Mitglied.Geburtstag)
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Mitglied.Telefonnummer)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Mitglied.Telefonnummer)
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Mitglied.HandyNummer)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Mitglied.HandyNummer)
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Mitglied.EMail)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Mitglied.EMail)
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Mitglied.Eintrittsdatum)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Mitglied.Eintrittsdatum)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Mitglied.Austrittsdatum)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Mitglied.Austrittsdatum)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+    @if (@UserManager.GetUserAsync(User).Result.Rolle <= BenutzerTyp.ErweiterterVorstand)
+    {
+        <a class="btn btn-primary mr-1" asp-page="./Edit" asp-route-id="@Model.Mitglied.Id">Editieren</a>
+        <a class="btn btn-danger mr-1" asp-page="./Delete" asp-route-id="@Model.Mitglied.Id">Löschen</a>
+    }
+        <a class="btn btn-secondary mr-1" asp-page="./Index">Zurück zur Liste</a>
+    </div>
+</div>
+
+<br />
+
+@if (@Model.Mitglied.Familienmitgliedschaft == true)
+{
+<div class="row">
+    <div class="col-auto ml-0 mr-auto">
+        <h2>Familienmitglieder</h2>
+    </div>
+    <div class="col-auto">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#familieVerknuepfenModal">
+            Familienmitglied verknüpfen
+        </button>
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#familieVerknuepfungAufhebenModal">
+            Verknüpfung aufheben
+        </button>
+    </div>
+</div>
+
+<p>
+@if (@Model.Mitglied.Familie != null && @Model.Mitglied.Familie.Mitglieder != null)
+{
+    @await Html.PartialAsync("../Shared/_MitgliederListPartial", Model.Mitglied.Familie.Mitglieder)
+}
+</p>
+}
+
+<br />
+
+@if (@Model.Mitglied.ZahlungsInfo != null && @UserManager.GetUserAsync(User).Result.Rolle <= BenutzerTyp.ErweiterterVorstand)
+{
+<div class="row">
+    <div class="col-auto ml-0 mr-auto">
+        <h2>Zahlungsinformation</h2>
+    </div>
+</div>
+
+<p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mitglied.ZahlungsInfo.BankName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mitglied.ZahlungsInfo.KontoInhaber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mitglied.ZahlungsInfo.Iban)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mitglied.ZahlungsInfo.Bic)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="align-middle">
+                        @Html.DisplayFor(model => model.Mitglied.ZahlungsInfo.BankName)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(model => model.Mitglied.ZahlungsInfo.KontoInhaber)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(model => model.Mitglied.ZahlungsInfo.Iban)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(model => model.Mitglied.ZahlungsInfo.Bic)
+                    </td>
+                    <td class="align-middle">
+                        <a class="btn btn-primary float-right" asp-page="../ZahlungsInformationen/Details" asp-route-id="@Model.Mitglied.ZahlungsInfo.Id">Details</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</p>
+
+<br />
+}
+
+<div class="row">
+    <div class="col-auto ml-0 mr-auto">
+        <h2>Hunde</h2>
+    </div>
+    <div class="col-auto">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#hundVerknuepfenModal">
+            Hund verknüpfen
+        </button>
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#hundVerknuepfungAufhebenModal">
+            Verknüpfung aufheben
+        </button>
+    </div>
+</div>
+
+<p>
+    @await Html.PartialAsync("../Shared/_HundeListPartial", Model.Mitglied.Hunde)
+<p>
+
+<br />
+
+<div class="row">
+    <div class="col-auto ml-0 mr-auto">
+        <h2>Kurse</h2>
+    </div>
+    <div class="col-auto">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#kursVerknuepfenModal">
+            Kurs verknüpfen
+        </button>
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#kursVerknuepfungAufhebenModal">
+            Verknüpfung aufheben
+        </button>
+    </div>
+</div>
+
+<p>
+    @await Html.PartialAsync("../Shared/_KurseListPartial", Model.Kurse)
+</p>
+
+
+
+
+
+<!-- Familie verknüpfen Modal -->
+<div class="modal fade" id="familieVerknuepfenModal" tabindex="-1" role="dialog" aria-labelledby="familieVerknuepfenModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="familieVerknuepfenModalTitle">Familienmitglied verknüpfen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input id="modalInput" type="text" class="form-control" placeholder="Mitgliedsname" aria-label="Mitgliedsname" aria-describedby="modalSearch">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="modalSearch">Suchen</button>
+                        </div>
+                        <br />
+                        <div class="stec-modal-wrapper-scroll-y stec-modal-scrollbar">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Mitglied</th>
+                                        <th>Geburtsdatum</th>
+                                        <th>Auswahl</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalTable">
+                            @for (int i = 0; i < Model.LinkFamilieModalObjects.Count(); i++)
+                            {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => Model.LinkFamilieModalObjects[i].Id)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model.LinkFamilieModalObjects[i].Vorname) @Html.DisplayFor(modelItem => Model.LinkFamilieModalObjects[i].Name)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model.LinkFamilieModalObjects[i].Geburtstag)</td>
+                                        <td>
+                                            @Html.HiddenFor(modelItem => Model.LinkFamilieModalObjects[i].Id)
+                                            @Html.CheckBoxFor(modelItem => Model.LinkFamilieModalObjects[i].Selected)
+                                        </td>
+                                    </tr>
+                            }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                    <button type="submit" class="btn btn-primary" asp-page-handler="FamilieVerknuepfen" asp-route-id="@Model.Mitglied.Id">Speichern</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Familie verknüpfung aufheben Modal -->
+<div class="modal fade" id="familieVerknuepfungAufhebenModal" tabindex="-1" role="dialog" aria-labelledby="familieVerknuepfungAufhebenModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="familieVerknuepfungAufhebenModalTitle">Verknüpfung mit Familienmitglied aufheben</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Mitgliedsname" aria-label="Mitgliedsname" aria-describedby="modalSearch" id="modalInput">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="modalSearch">Suchen</button>
+                        </div>
+                        <br />
+                        <div class="stec-modal-wrapper-scroll-y stec-modal-scrollbar">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Mitglied</th>
+                                        <th>Geburtsdatum</th>
+                                        <th>Auswahl</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalTable">
+                        @if (Model.Mitglied.Familie != null)
+                        {
+                            @for (int i = 0; i < Model.UnlinkFamilieModalObjects.Count(); i++) {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => Model.UnlinkFamilieModalObjects[i].Id)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model.UnlinkFamilieModalObjects[i].Vorname) @Html.DisplayFor(modelItem => Model.UnlinkFamilieModalObjects[i].Name)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model.UnlinkFamilieModalObjects[i].Geburtstag)</td>
+                                        <td>
+                                            @Html.HiddenFor(modelItem => Model.UnlinkFamilieModalObjects[i].Id)
+                                            @Html.CheckBoxFor(modelItem => Model.UnlinkFamilieModalObjects[i].Selected)
+                                        </td>
+                                    </tr>
+                            }
+                        }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                    <button type="submit" class="btn btn-primary" asp-page-handler="FamilieVerknuepfungAufheben" asp-route-id="@Model.Mitglied.Id">Speichern</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Hund verknüpfen Modal -->
+<div class="modal fade" id="hundVerknuepfenModal" tabindex="-1" role="dialog" aria-labelledby="hundVerknuepfenModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="hundVerknuepfenModalTitle">Hund verknüpfen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Hundename" aria-label="Hundename" aria-describedby="modalSearch" id="modalInput">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="modalSearch">Suchen</button>
+                        </div>
+                        <br />
+                        <div class="stec-modal-wrapper-scroll-y stec-modal-scrollbar">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Hundename</th>
+                                        <th>Rasse</th>
+                                        <th>Geburtsdatum</th>
+                                        <th>Auswahl</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalTable">
+                @for (int i = 0; i < Model.LinkHundModalObjects.Count(); i++)
+                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => Model.LinkHundModalObjects[i].Id)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model.LinkHundModalObjects[i].Hundename)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model.LinkHundModalObjects[i].Rasse)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model.LinkHundModalObjects[i].Geburtstag)</td>
+                                        <td>
+                                            @Html.HiddenFor(modelItem => Model.LinkHundModalObjects[i].Id)
+                                            @Html.CheckBoxFor(modelItem => Model.LinkHundModalObjects[i].Selected)
+                                        </td>
+                                    </tr>
+                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                    <button type="submit" class="btn btn-primary" asp-page-handler="HundVerknuepfen" asp-route-id="@Model.Mitglied.Id">Speichern</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Hund verknüpfung aufheben Modal -->
+<div class="modal fade" id="hundVerknuepfungAufhebenModal" tabindex="-1" role="dialog" aria-labelledby="hundVerknuepfungAufhebenModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="hundVerknuepfungAufhebenModalTitle">Verknüpfung mit Hund aufheben</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Hundename" aria-label="Hundename" aria-describedby="modalSearch" id="modalInput">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="modalSearch">Suchen</button>
+                        </div>
+                        <br />
+                        <div class="stec-modal-wrapper-scroll-y stec-modal-scrollbar">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Hundename</th>
+                                        <th>Rasse</th>
+                                        <th>Geburtsdatum</th>
+                                        <th>Auswahl</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalTable">
+                @for (int i = 0; i < Model.UnlinkHundModalObjects.Count(); i++)
+                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => Model.UnlinkHundModalObjects[i].Id)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model.UnlinkHundModalObjects[i].Hundename)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model.UnlinkHundModalObjects[i].Rasse)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model.UnlinkHundModalObjects[i].Geburtstag)</td>
+                                        <td>
+                                            @Html.HiddenFor(modelItem => Model.UnlinkHundModalObjects[i].Id)
+                                            @Html.CheckBoxFor(modelItem => Model.UnlinkHundModalObjects[i].Selected)
+                                        </td>
+                                    </tr>
+                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                    <button type="submit" class="btn btn-primary" asp-page-handler="HundVerknuepfungAufheben" asp-route-id="@Model.Mitglied.Id">Speichern</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Kurs verknüpfen Modal -->
+<div class="modal fade" id="kursVerknuepfenModal" tabindex="-1" role="dialog" aria-labelledby="kursVerknuepfenModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="kursVerknuepfenModalTitle">Kurs verknüpfen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input id="modalInput" type="text" class="form-control" placeholder="Kursname" aria-label="Kursname" aria-describedby="modalSearch">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="modalSearch">Suchen</button>
+                        </div>
+                        <br />
+                        <div class="stec-modal-wrapper-scroll-y stec-modal-scrollbar">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Kurs</th>
+                                        <th>Auswahl</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalTable">
+                            @for (int i = 0; i < Model.LinkKursModalObjects.Count(); i++)
+                            {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => Model.LinkKursModalObjects[i].Id)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model.LinkKursModalObjects[i].Kursname)</td>
+                                        <td>
+                                            @Html.HiddenFor(modelItem => Model.LinkKursModalObjects[i].Id)
+                                            @Html.CheckBoxFor(modelItem => Model.LinkKursModalObjects[i].Selected)
+                                        </td>
+                                    </tr>
+                            }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                    <button type="submit" class="btn btn-primary" asp-page-handler="KursVerknuepfen" asp-route-id="@Model.Mitglied.Id">Speichern</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Kurs verknüpfung aufheben Modal -->
+<div class="modal fade" id="kursVerknuepfungAufhebenModal" tabindex="-1" role="dialog" aria-labelledby="kursVerknuepfungAufhebenModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="kursVerknuepfungAufhebenModalTitle">Verknüpfung mit Kurs aufheben</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Kursname" aria-label="Kursname" aria-describedby="modalSearch" id="modalInput">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="modalSearch">Suchen</button>
+                        </div>
+                        <br />
+                        <div class="stec-modal-wrapper-scroll-y stec-modal-scrollbar">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Kurs</th>
+                                        <th>Auswahl</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalTable">
+                            @for (int i = 0; i < Model.UnlinkKursModalObjects.Count(); i++)
+                            {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => Model.UnlinkKursModalObjects[i].Id)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model.UnlinkKursModalObjects[i].Kursname)</td>
+                                        <td>
+                                            @Html.HiddenFor(modelItem => Model.UnlinkKursModalObjects[i].Id)
+                                            @Html.CheckBoxFor(modelItem => Model.UnlinkKursModalObjects[i].Selected)
+                                        </td>
+                                    </tr>
+                            }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                    <button type="submit" class="btn btn-primary" asp-page-handler="KursVerknuepfungAufheben" asp-route-id="@Model.Mitglied.Id">Speichern</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+@using Verein.Models
+@model List<Mitglied>
+
+<table id="mitgliederTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                M.Nr
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Vorname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Geburtstag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Telefonnummer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].HandyNummer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].EMail)
+            </th>
+            <th>
+                Adresse
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Typ)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.MitgliedsNummer)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Vorname)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Geburtstag)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Telefonnummer)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.HandyNummer)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.EMail)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Strasse) @Html.DisplayFor(modelItem => item.Hausnummer)
+                <br />
+                @Html.DisplayFor(modelItem => item.Postleitzahl) @Html.DisplayFor(modelItem => item.Ort)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Typ)
+            </td>
+            <td class="align-middle">
+                <a class="btn btn-primary float-right" asp-page="../Mitglieder/Details" asp-route-id="@item.Id">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

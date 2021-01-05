@@ -1,0 +1,56 @@
+@page
+@using Microsoft.AspNetCore.Identity
+@using Verein.Models
+
+@model Verein.Pages.Tarife.IndexModel
+
+@inject UserManager<HundevereinUser> UserManager
+
+
+@{
+    ViewData["Title"] = "Tarife";
+}
+
+<h1>Tarife</h1>
+
+<p>
+    @if (@UserManager.GetUserAsync(User).Result.Rolle <= BenutzerTyp.ErweiterterVorstand)
+    {
+    <a class="btn btn-primary" asp-page="Create">Neuen Tarif erstellen</a>
+    <a class="btn btn-primary float-right" asp-page="../TarifAuswertung">Beitragsauswertung anzeigen</a>
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tarif[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tarif[0].Fee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tarif[0].Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Tarif) {
+        <tr>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Fee)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td class="align-middle">
+                <a class="btn btn-primary float-right" asp-page="./Details" asp-route-id="@item.Id">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,76 @@
+@page
+@model Verein.Pages.Kurse.CreateModel
+
+@{
+    ViewData["Title"] = "Kurs anlegen";
+}
+
+<h1>Kurs anlegen</h1>
+
+<h4>Kurs</h4>
+<hr />
+<div class="row">
+    <form class="col-md-12" method="post">
+        <div class="form-row">
+            <div class="col-md-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Kurs.Titel" class="control-label"></label>
+                    <span asp-validation-for="Kurs.Titel" class="text-danger float-right"></span>
+                    <input asp-for="Kurs.Titel" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Kurs.Startdatum" class="control-label"></label>
+                    <span asp-validation-for="Kurs.Startdatum" class="text-danger float-right"></span>
+                    <input asp-for="Kurs.Startdatum" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Kurs.Enddatum" class="control-label"></label>
+                    <span asp-validation-for="Kurs.Enddatum" class="text-danger float-right"></span>
+                    <input asp-for="Kurs.Enddatum" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Kurs.Wochentag" class="control-label"></label>
+                    <span asp-validation-for="Kurs.Wochentag" class="text-danger float-right"></span>
+                    <select asp-for="Kurs.Wochentag" asp-items="Html.GetEnumSelectList<Verein.Models.Wochentag>()" class="form-control">
+                        <option selected="selected" value="">Bitte Auswählen</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Kurs.Von" class="control-label"></label>
+                    <span asp-validation-for="Kurs.Von" class="text-danger float-right"></span>
+                    <input asp-for="Kurs.Von" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Kurs.Bis" class="control-label"></label>
+                    <span asp-validation-for="Kurs.Bis" class="text-danger float-right"></span>
+                    <input asp-for="Kurs.Bis" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="Kurs.Beschreibung" class="control-label"></label>
+                    <span asp-validation-for="Kurs.Beschreibung" class="text-danger float-right"></span>
+                    <textarea asp-for="Kurs.Beschreibung" class="form-control" rows="4"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="submit" value="Erstellen" class="btn btn-primary mr-1" />
+                    <a class="btn btn-secondary mr-1" asp-page="Index">Zurück zur Liste</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

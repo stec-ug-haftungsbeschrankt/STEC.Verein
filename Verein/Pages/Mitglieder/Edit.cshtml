@@ -1,0 +1,132 @@
+@page
+@model Verein.Pages.Mitglieder.EditModel
+
+@{
+    ViewData["Title"] = "Mitglied editieren";
+}
+
+<h1>Mitglied editieren</h1>
+
+<h4>Mitglied</h4>
+<hr />
+<div class="row">
+    <form class="col-md-12" method="post">
+        <div class="form-row">
+            <div class="col-md-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Mitglied.Id" />
+                <div class="form-group">
+                    <label asp-for="Mitglied.Name" class="control-label"></label>
+                    <span asp-validation-for="Mitglied.Name" class="text-danger float-right"></span>
+                    <input asp-for="Mitglied.Name" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mitglied.Vorname" class="control-label"></label>
+                    <span asp-validation-for="Mitglied.Vorname" class="text-danger float-right"></span>
+                    <input asp-for="Mitglied.Vorname" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mitglied.Typ" class="control-label"></label>
+                    <span asp-validation-for="Mitglied.Typ" class="text-danger float-right"></span>
+                    <select asp-for="Mitglied.Typ" asp-items="Html.GetEnumSelectList<Verein.Models.MitgliederTyp>()" class="form-control">
+                        <option selected="selected" value="">Bitte Auswählen</option>
+                    </select>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="Mitglied.Passiv" /> @Html.DisplayNameFor(model => model.Mitglied.Passiv)
+                    </label>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="Mitglied.Familienmitgliedschaft" /> @Html.DisplayNameFor(model => model.Mitglied.Familienmitgliedschaft)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mitglied.Strasse" class="control-label"></label>
+                    <span asp-validation-for="Mitglied.Strasse" class="text-danger float-right"></span>
+                    <input asp-for="Mitglied.Strasse" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mitglied.Hausnummer" class="control-label"></label>
+                    <span asp-validation-for="Mitglied.Hausnummer" class="text-danger float-right"></span>
+                    <input asp-for="Mitglied.Hausnummer" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mitglied.Postleitzahl" class="control-label"></label>
+                    <span asp-validation-for="Mitglied.Postleitzahl" class="text-danger float-right"></span>
+                    <input asp-for="Mitglied.Postleitzahl" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mitglied.Ort" class="control-label"></label>
+                    <span asp-validation-for="Mitglied.Ort" class="text-danger float-right"></span>
+                    <input asp-for="Mitglied.Ort" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Mitglied.MitgliedsNummer" class="control-label"></label>
+                    <span asp-validation-for="Mitglied.MitgliedsNummer" class="text-danger float-right"></span>
+                    <input asp-for="Mitglied.MitgliedsNummer" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mitglied.SwhvMitgliedsNummer" class="control-label"></label>
+                    <span asp-validation-for="Mitglied.SwhvMitgliedsNummer" class="text-danger float-right"></span>
+                    <input asp-for="Mitglied.SwhvMitgliedsNummer" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mitglied.Geburtstag" class="control-label"></label>
+                    <span asp-validation-for="Mitglied.Geburtstag" class="text-danger float-right"></span>
+                    <input asp-for="Mitglied.Geburtstag" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mitglied.Telefonnummer" class="control-label"></label>
+                    <span asp-validation-for="Mitglied.Telefonnummer" class="text-danger float-right"></span>
+                    <input asp-for="Mitglied.Telefonnummer" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mitglied.HandyNummer" class="control-label"></label>
+                    <span asp-validation-for="Mitglied.HandyNummer" class="text-danger float-right"></span>
+                    <input asp-for="Mitglied.HandyNummer" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mitglied.EMail" class="control-label"></label>
+                    <span asp-validation-for="Mitglied.EMail" class="text-danger float-right"></span>
+                    <input asp-for="Mitglied.EMail" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mitglied.Eintrittsdatum" class="control-label"></label>
+                    <span asp-validation-for="Mitglied.Eintrittsdatum" class="text-danger float-right"></span>
+                    <input asp-for="Mitglied.Eintrittsdatum" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mitglied.Austrittsdatum" class="control-label"></label>
+                    <span asp-validation-for="Mitglied.Austrittsdatum" class="text-danger float-right"></span>
+                    <input asp-for="Mitglied.Austrittsdatum" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="Mitglied.Bemerkung" class="control-label"></label>
+                    <span asp-validation-for="Mitglied.Bemerkung" class="text-danger float-right"></span>
+                    <textarea asp-for="Mitglied.Bemerkung" class="form-control" rows="4"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="submit" value="Speichern" class="btn btn-primary mr-1" />
+                    <a class="btn btn-secondary mr-1" asp-page="./Index">Zurück zur Liste</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

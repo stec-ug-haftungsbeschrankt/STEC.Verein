@@ -1,0 +1,40 @@
+@page
+@model Verein.Pages.Inventar.DeleteModel
+
+@{
+    ViewData["Title"] = "Gegenstand löschen";
+}
+
+<h1>Gegenstand löschen</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Gegenstand</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Gegenstand.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Gegenstand.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Gegenstand.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Gegenstand.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Gegenstand.Ort)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Gegenstand.Ort)
+        </dd>
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="Gegenstand.Id" />
+        <input type="submit" value="Löschen" class="btn btn-danger mr-1" />
+        <a class="btn btn-secondary mr-1" asp-page="./Index">Zurück zur Liste</a>
+    </form>
+</div>

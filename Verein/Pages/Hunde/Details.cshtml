@@ -1,0 +1,157 @@
+@page
+@using Verein.Models
+@model Verein.Pages.Hunde.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Hund</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Hund.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Hund.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Hund.Zwingername)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Hund.Zwingername)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Hund.Rasse)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Hund.Rasse)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Hund.Geburtsdatum)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Hund.Geburtsdatum)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Hund.ChipNummer)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Hund.ChipNummer)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Hund.Geimpft)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Hund.Geimpft)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Hund.Versichert)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Hund.Versichert)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Hund.Besitzer)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Hund.Besitzer.Vorname) @Html.DisplayFor(model => model.Hund.Besitzer.Name)
+        </dd>
+    </dl>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <a class="btn btn-primary mr-1" asp-page="./Edit" asp-route-id="@Model.Hund.Id">Editieren</a>
+        <a class="btn btn-danger mr-1" asp-page="./Delete" asp-route-id="@Model.Hund.Id">Löschen</a>
+        <a class="btn btn-secondary mr-1" asp-page="./Index">Zurück zur Liste</a>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-auto ml-0 mr-auto">
+        <h2>Besitzer</h2>
+    </div>
+    <div class="col-auto">
+        <form method="post">
+            <button type="button" class="btn btn-primary mr-1" data-toggle="modal" data-target="#mitgliedVerknuepfenModal">
+                Besitzer verknüpfen
+            </button>
+            <button type="submit" class="btn btn-secondary mr-1" asp-page-handler="MitgliedVerknuepfungAufheben" asp-route-id="@Model.Hund.Id">
+                Verknüpfung aufheben
+            </button>
+        </form>
+    </div>
+</div>
+
+<p>
+    @{
+        var besitzer = new List<Mitglied>();
+        if (Model.Hund.Besitzer != null)
+        {
+            besitzer.Add(Model.Hund.Besitzer);
+        }
+    }
+    @await Html.PartialAsync("../Shared/_MitgliederListPartial", besitzer)
+</p>
+
+
+<!-- Mitglied verknüpfen Modal -->
+<div class="modal fade" id="mitgliedVerknuepfenModal" tabindex="-1" role="dialog" aria-labelledby="mitgliedVerknuepfenModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mitgliedVerknuepfenModalTitle">Mitglied verknüpfen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input id="modalInput" type="text" class="form-control" placeholder="Mitgliedsname" aria-label="Mitgliedsname" aria-describedby="modalSearch">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="modalSearch">Suchen</button>
+                        </div>
+                        <br />
+                        <div class="stec-modal-wrapper-scroll-y stec-modal-scrollbar">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Mitglied</th>
+                                        <th>Geburtsdatum</th>
+                                        <th>Auswahl</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalTable">
+                            @foreach (var item in Model.Mitglieder) {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Vorname) @Html.DisplayFor(modelItem => item.Name)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Geburtstag)</td>
+                                        <td>
+                                            @Html.RadioButtonFor(modelItem => Model.Selected, item.Id)
+                                        </td>
+                                    </tr>
+                            }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                    <button type="submit" class="btn btn-primary" asp-page-handler="MitgliedVerknuepfen" asp-route-id="@Model.Hund.Id">Speichern</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

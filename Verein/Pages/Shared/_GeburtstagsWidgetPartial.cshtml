@@ -1,0 +1,85 @@
+@using System.Linq
+@using Verein.Models
+@model IList<Mitglied>
+
+@{
+    int DaysUntilNextBirthday(DateTime birthday)
+    {
+        var birthdayDay = birthday.DayOfYear;
+        var currentDay = DateTime.Now.DayOfYear;
+
+        var daysUntil = birthdayDay - currentDay;
+
+        if (daysUntil < 0) {
+            daysUntil += 365;
+        }
+        return daysUntil;
+    }
+
+
+    var nextBirthdays = Model.OrderBy(m => DaysUntilNextBirthday(m.Geburtstag));
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Nächste Geburtstage</h2>
+    </div>
+</div>
+
+<p>
+
+</p>
+
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Vorname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Telefonnummer)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].HandyNummer)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].EMail)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Geburtstag)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+@foreach (var item in nextBirthdays.Take(10))
+{
+                <tr>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Vorname)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Telefonnummer)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.HandyNummer)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.EMail)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Geburtstag)
+                    </td>
+                </tr>
+}
+            </tbody>
+        </table>
+    </div>
+</div>

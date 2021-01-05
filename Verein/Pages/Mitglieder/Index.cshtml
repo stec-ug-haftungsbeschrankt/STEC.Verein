@@ -1,0 +1,35 @@
+@page
+@using Verein.Models
+@model Verein.Pages.Mitglieder.IndexModel
+
+@{
+    ViewData["Title"] = "Mitglieder";
+}
+
+<h1>Mitgliederliste</h1>
+
+<p>Liste mit allen Vereinsmitgliedern.</p>
+<p>
+    <div>
+        <a class="btn btn-primary" asp-page="Create">Neues Mitglied erstellen</a>
+
+        <a class="btn btn-primary mr-1 float-right" asp-page="/MitgliedEinAustritte">Ein- und Austritte</a>
+        <div class="dropdown mr-1 float-right">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Filter
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" asp-page-handler="Filter" asp-route-query="Alle">Alle</a>
+                <a class="dropdown-item" asp-page-handler="Filter" asp-route-query="Ehrenmitglied">Ehrenmitglieder</a>
+                <a class="dropdown-item" asp-page-handler="Filter" asp-route-query="Mitglied">Mitglieder</a>
+                <a class="dropdown-item" asp-page-handler="Filter" asp-route-query="Kursteilnehmer">Kursteilnehmer</a>
+                <a class="dropdown-item" asp-page-handler="Filter" asp-route-query="Jahresteilnahme">Jahresteilnehmer</a>
+                <a class="dropdown-item" asp-page-handler="Filter" asp-route-query="WelpenLernSpielstunde">Welpen Lern- und Spielstunde</a>
+            </div>
+        </div>
+        <input type="text" id="mitgliederSearch" class="float-right mr-3" placeholder="Suche..." title="Type in a name">
+    </div>
+</p>
+<p>
+    @await Html.PartialAsync("../Shared/_MitgliederListPartial", Model.Mitglieder)
+</p>

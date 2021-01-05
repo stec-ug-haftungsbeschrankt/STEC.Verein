@@ -1,0 +1,61 @@
+@using Verein.Models
+@model List<Hund>
+
+<table  id="hundeTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Zwingername)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Rasse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Geburtsdatum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].ChipNummer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Geimpft)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Versichert)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Zwingername)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Rasse)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Geburtsdatum)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.ChipNummer)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Geimpft)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Versichert)
+            </td>
+            <td class="align-middle">
+                <a class="btn btn-primary float-right" asp-page="../Hunde/Details" asp-route-id="@item.Id">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
